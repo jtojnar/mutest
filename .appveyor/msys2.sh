@@ -8,12 +8,17 @@ else
     export MSYS2_ARCH="x86_64"
 fi
 
+pacman --noconfirm -Suy
+
 # Install the required packages
-pacman --noconfirm -Syyu --needed \
+pacman --noconfirm -S --needed \
+    base-devel \
     mingw-w64-$MSYS2_ARCH-gcc \
-    mingw-w64-$MSYS2_ARCH-meson \
     mingw-w64-$MSYS2_ARCH-ninja \
     mingw-w64-$MSYS2_ARCH-pkg-config \
+
+pip3 install --upgrade --user meson==0.50.1
+export PATH="$HOME/.local/bin:$PATH"
 
 # Build
 meson _build -Dstatic=true
